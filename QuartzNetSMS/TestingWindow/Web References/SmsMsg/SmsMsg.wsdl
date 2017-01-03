@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SmsSend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mobiles" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="creatorId" nillable="true" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="creator" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sendTime" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="sysPlatform" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="stype" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="levelNum" nillable="true" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SmsSendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SmsSendResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MySoapHeader" type="tns:MySoapHeader" />
+      <s:complexType name="MySoapHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="loginPwd" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="TestingWebService">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestingWebServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestingWebServiceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestingAuthentication">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestingAuthenticationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TestingAuthenticationResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SmsSendSoapIn">
+    <wsdl:part name="parameters" element="tns:SmsSend" />
+  </wsdl:message>
+  <wsdl:message name="SmsSendSoapOut">
+    <wsdl:part name="parameters" element="tns:SmsSendResponse" />
+  </wsdl:message>
+  <wsdl:message name="SmsSendMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="TestingWebServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:TestingWebService" />
+  </wsdl:message>
+  <wsdl:message name="TestingWebServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:TestingWebServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestingAuthenticationSoapIn">
+    <wsdl:part name="parameters" element="tns:TestingAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="TestingAuthenticationSoapOut">
+    <wsdl:part name="parameters" element="tns:TestingAuthenticationResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestingAuthenticationMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:portType name="SmsMsgSoap">
+    <wsdl:operation name="SmsSend">
+      <wsdl:input message="tns:SmsSendSoapIn" />
+      <wsdl:output message="tns:SmsSendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestingWebService">
+      <wsdl:input message="tns:TestingWebServiceSoapIn" />
+      <wsdl:output message="tns:TestingWebServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestingAuthentication">
+      <wsdl:input message="tns:TestingAuthenticationSoapIn" />
+      <wsdl:output message="tns:TestingAuthenticationSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SmsMsgSoap" type="tns:SmsMsgSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SmsSend">
+      <soap:operation soapAction="http://tempuri.org/SmsSend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SmsSendMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestingWebService">
+      <soap:operation soapAction="http://tempuri.org/TestingWebService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestingAuthentication">
+      <soap:operation soapAction="http://tempuri.org/TestingAuthentication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:TestingAuthenticationMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SmsMsgSoap12" type="tns:SmsMsgSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SmsSend">
+      <soap12:operation soapAction="http://tempuri.org/SmsSend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SmsSendMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestingWebService">
+      <soap12:operation soapAction="http://tempuri.org/TestingWebService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestingAuthentication">
+      <soap12:operation soapAction="http://tempuri.org/TestingAuthentication" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:TestingAuthenticationMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SmsMsg">
+    <wsdl:port name="SmsMsgSoap" binding="tns:SmsMsgSoap">
+      <soap:address location="http://192.168.6.235:8075/SmsMsg.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SmsMsgSoap12" binding="tns:SmsMsgSoap12">
+      <soap12:address location="http://192.168.6.235:8075/SmsMsg.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
